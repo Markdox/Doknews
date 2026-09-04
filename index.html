@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Sky TG24 • Edizione del Giorno</title>
 
+  <!-- Metadati PWA e Modalità App Standalone per Mobile -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Sky TG24">
@@ -314,7 +315,8 @@
 
     async function fetchSkyNews() {
       const timestamp = Date.now();
-      const targetRss = `https://news.google.com/rss/search?q=site:tg24.sky.it&hl=it&gl=IT&ceid=IT:it&_nocache=${timestamp}`;
+      // Query con esclusione parole chiave oroscopo e focus sulle sezioni principali
+      const targetRss = `https://news.google.com/rss/search?q=site:tg24.sky.it+-oroscopo+-segno+-zodiaco+(cronaca+OR+mondo+OR+politica+OR+attualita)&hl=it&gl=IT&ceid=IT:it&_nocache=${timestamp}`;
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(targetRss)}&api_key=&_t=${timestamp}`;
 
       const res = await fetch(apiUrl, { cache: 'no-store' });
